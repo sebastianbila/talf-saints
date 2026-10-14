@@ -438,7 +438,14 @@ function track(e,k,v){try{if(window.clarity){if(k)clarity('set',k,String(v));cla
   const _tm=timer;timer=function(){_tm();setBg('wings')};
   const _ve=verify;verify=function(){_ve();setBg('wings');track('proof_submitted')};
   const _pr=proof;proof=function(){_pr();setBg(null)};
-  const _rv=reveal;reveal=function(){_rv();track('gift_revealed');setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
+  const _rv=reveal;reveal=function(){_rv();
+    (function(){const again=document.getElementById('again');if(!again)return;
+      const off=document.createElement('button');off.className='ghost';off.id='musicOff';off.textContent=(typeof musicOn!=='undefined'&&musicOn)?'Turn off music':'Music is off';
+      again.insertAdjacentElement('beforebegin',off);
+      const row=document.createElement('div');row.className='row';off.before(row);row.append(off,again);
+      off.onclick=()=>{if(typeof musicOn!=='undefined')musicOn=false;if(music)music.pause();off.textContent='Music is off';off.disabled=true;track('music_off')};
+      again.onclick=()=>{if(typeof startMusic==='function')startMusic();intro()};
+    })();track('gift_revealed');setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
 })();
 
 let musicOn=false;
