@@ -182,7 +182,7 @@ const Q=[
 let score=0;const scored=Q.filter(x=>x.c!==undefined).length;
 const stage=document.getElementById('stage'),prog=document.getElementById('progress'),tag=document.getElementById('fileTag');
 for(let i=0;i<Q.length;i++){prog.appendChild(document.createElement('i'))}
-const CERT_REAL=true; /* switched by golive.sh */
+const CERT_REAL=false; /* switched by golive.sh */
 let FULL=false; /* true once he chooses to start all over */
 function startOver(){FULL=true;try{startMusic()}catch(e){}intro()}
 function setProg(n){[...prog.children].forEach((el,i)=>el.classList.toggle('on',i<n))}
