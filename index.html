@@ -182,6 +182,9 @@ const Q=[
 let score=0;const scored=Q.filter(x=>x.c!==undefined).length;
 const stage=document.getElementById('stage'),prog=document.getElementById('progress'),tag=document.getElementById('fileTag');
 for(let i=0;i<Q.length;i++){prog.appendChild(document.createElement('i'))}
+const CERT_REAL=false; /* switched by golive.sh */
+let FULL=false; /* true once he chooses to start all over */
+function startOver(){FULL=true;try{startMusic()}catch(e){}intro()}
 function setProg(n){[...prog.children].forEach((el,i)=>el.classList.toggle('on',i<n))}
 function show(html){stage.innerHTML='<section class="screen">'+html+'</section>';const f=stage.querySelector('button');if(f)f.focus({preventScroll:true});window.scrollTo({top:0})}
 function intro(){
@@ -189,8 +192,10 @@ function intro(){
   show(`<div class="eyebrow">Birthday clearance required</div>
   <h1>Happy<em>Birthday</em></h1>
   <p class="lead">Something was prepared for you. Before we hand it over, we need to confirm you are the real TALF SAINTS. Eighteen questions. Get them wrong and we’ll know.</p>
-  <button class="btn" id="go">Begin verification</button>`);
-  document.getElementById('go').onclick=()=>{startMusic();ask(0)};
+  <div class="row"><button class="btn" id="go">Begin verification</button>${CERT_REAL?'<button class="ghost" id="skipAll">Skip to my certificate</button>':''}</div>
+  ${CERT_REAL?'<p class="note">Already verified in person. The questions are optional now.</p>':''}`);
+  document.getElementById('go').onclick=()=>{startMusic();if(CERT_REAL)FULL=true;ask(0)};
+  if(CERT_REAL)document.getElementById('skipAll').onclick=()=>{startMusic();FULL=false;track('skip_quiz');challenge()};
 }
 function ask(i){
   if(i===0)score=0;
@@ -274,12 +279,13 @@ const canLive=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&wi
 function uploadLink(t){return `<label class="linkish" for="cam">${t}<input id="cam" type="file" accept="video/*"></label>`}
 function challenge(again){
   tag.textContent='Final test';
-  if(CERT_REAL&&!again){
+  if(CERT_REAL&&!again&&!FULL){
     show(`<div class="eyebrow">Already cleared</div>
   <h2>We already verified you, saint.</h2>
   <p class="lead">sebii_sw saw the planche in person. Clearance granted, the file is yours.</p>
   <div class="row"><button class="btn" id="toGift">Open the file</button><button class="ghost" id="tryAgain">Try the planche again</button></div>
-  <p class="note">Want to prove it one more time? The test still works.</p>`);
+  <p class="note">Want to prove it one more time? The test still works. Or ${'<span class="linkish" id="startOver">start all over</span>'}: questions, planche and all.</p>`);
+    document.getElementById('startOver').onclick=()=>{track('start_over','at','cleared');startOver()};
     document.getElementById('toGift').onclick=()=>{track('skip_verification');reveal()};
     document.getElementById('tryAgain').onclick=()=>{track('planche_again');challenge(true)};
     return;
@@ -374,7 +380,6 @@ function proof(){
   <button class="btn" id="toGift">Open the file</button>`);
   document.getElementById('toGift').onclick=reveal;
 }
-const CERT_REAL=false; /* switched by golive.sh */
 function reveal(){
   setProg(Q.length);tag.textContent='Clearance granted';
   stage.innerHTML=`<section class="screen reveal">
@@ -458,7 +463,8 @@ function track(e,k,v){try{if(window.clarity){if(k)clarity('set',k,String(v));cla
       again.insertAdjacentElement('beforebegin',off);
       const row=document.createElement('div');row.className='row';off.before(row);row.append(off,again);
       off.onclick=()=>{if(typeof musicOn!=='undefined')musicOn=false;if(music)music.pause();off.textContent='Music is off';off.disabled=true;track('music_off')};
-      again.onclick=()=>{if(typeof startMusic==='function')startMusic();intro()};
+      if(CERT_REAL)again.textContent='Start all over';
+      again.onclick=()=>{if(CERT_REAL){track('start_over','at','gift');startOver();return}if(typeof startMusic==='function')startMusic();intro()};
     })();track('gift_revealed');setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
 })();
 
