@@ -272,8 +272,18 @@ function sequence(tn,ts,onEnd){
 
 const canLive=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);
 function uploadLink(t){return `<label class="linkish" for="cam">${t}<input id="cam" type="file" accept="video/*"></label>`}
-function challenge(){
+function challenge(again){
   tag.textContent='Final test';
+  if(CERT_REAL&&!again){
+    show(`<div class="eyebrow">Already cleared</div>
+  <h2>We already verified you, saint.</h2>
+  <p class="lead">sebii_sw saw the planche in person. Clearance granted, the file is yours.</p>
+  <div class="row"><button class="btn" id="toGift">Open the file</button><button class="ghost" id="tryAgain">Try the planche again</button></div>
+  <p class="note">Want to prove it one more time? The test still works.</p>`);
+    document.getElementById('toGift').onclick=()=>{track('skip_verification');reveal()};
+    document.getElementById('tryAgain').onclick=()=>{track('planche_again');challenge(true)};
+    return;
+  }
   show(`<div class="eyebrow">One more moment</div>
   <h2>To prove you're the real TalF Saints…</h2>
   <ol class="steps"><li><b>01</b><span>Hold a full planche for 10 seconds.</span></li><li><b>02</b><span>Then press to handstand.</span></li><li><b>03</b><span>It all gets recorded. No proof, no gift.</span></li></ol>
@@ -312,7 +322,7 @@ async function record(facing){
   <div class="row" id="camCtl"><button class="btn" id="go" disabled>Start</button><button class="ghost" id="flip">Switch camera</button><button class="ghost" id="back">Back</button></div>
   <p class="err" id="camErr" role="alert"></p>`);
   const live=document.getElementById('live'),err=document.getElementById('camErr'),go=document.getElementById('go');
-  document.getElementById('back').onclick=()=>{stopStream();challenge()};
+  document.getElementById('back').onclick=()=>{stopStream();challenge(true)};
   document.getElementById('flip').onclick=()=>{stopStream();record(facing==='user'?'environment':'user')};
   stopStream();
   const vid={facingMode:facing,width:{ideal:960},height:{ideal:540},frameRate:{ideal:30,max:30}};
@@ -341,7 +351,7 @@ function timer(){
   <p class="timer" id="tn">10</p><p class="tstate" id="ts">Nothing is recorded. Tap start.</p>
   <div class="row" style="justify-content:center"><button class="btn" id="tgo" style="align-self:center">Start</button></div>`);
   const tn=document.getElementById('tn'),ts=document.getElementById('ts'),b=document.getElementById('tgo');
-  b.onclick=()=>{b.hidden=true;sequence(tn,ts,()=>{b.hidden=false;b.textContent=canLive?'Ready. Start the test':'Ready. Upload proof';b.onclick=canLive?()=>record('user'):challenge})};
+  b.onclick=()=>{b.hidden=true;sequence(tn,ts,()=>{b.hidden=false;b.textContent=canLive?'Ready. Start the test':'Ready. Upload proof';b.onclick=canLive?()=>record('user'):()=>challenge(true)})};
 }
 function verify(){
   tag.textContent='Verifying proof';
@@ -437,7 +447,7 @@ function track(e,k,v){try{if(window.clarity){if(k)clarity('set',k,String(v));cla
   const _intro=intro;intro=function(){_intro();setBg('jacket',true)};
   const _ask=ask;ask=function(i){_ask(i);setBg(Q_BG[i]||null);if(i===0)track('quiz_started')};
   const _gr=granting;granting=function(){_gr();setBg('jacket');track('quiz_finished','score',score+'/'+scored)};
-  const _ch=challenge;challenge=function(){_ch();setBg('crouch');track('challenge_opened')};
+  const _ch=challenge;challenge=function(again){_ch(again);setBg('crouch');track('challenge_opened')};
   const _rec=record;record=function(f){setBg(null);return _rec(f)};
   const _tm=timer;timer=function(){_tm();setBg('wings')};
   const _ve=verify;verify=function(){_ve();setBg('wings');track('proof_submitted')};
