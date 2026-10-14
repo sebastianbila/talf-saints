@@ -218,7 +218,7 @@ function ask(i){
 function granting(){
   tag.textContent='Verifying…';
   show(`<div class="eyebrow">Analysing answers</div><h2 id="gl">Checking your file…</h2>`);
-  const lines=[`Score: ${score}/${scored} correct`,'Discipline: confirmed','Wisdom: confirmed','Authenticity: confirmed','Identity: TaLF Saints'];
+  const lines=[`Score: ${score}/${scored} correct`,'Discipline: confirmed','Wisdom: confirmed','Authenticity: confirmed','Identity: TalF Saints'];
   let k=0;const gl=document.getElementById('gl');
   const t=setInterval(()=>{gl.textContent=lines[k++];if(k===lines.length){clearInterval(t);setTimeout(archive,900)}},650);
 }
@@ -258,7 +258,7 @@ function uploadLink(t){return `<label class="linkish" for="cam">${t}<input id="c
 function challenge(){
   tag.textContent='Final test';
   show(`<div class="eyebrow">One more moment</div>
-  <h2>To prove you're the real TaLF Saints…</h2>
+  <h2>To prove you're the real TalF Saints…</h2>
   <ol class="steps"><li><b>01</b><span>Hold a full planche for 10 seconds.</span></li><li><b>02</b><span>Then press to handstand.</span></li><li><b>03</b><span>It all gets recorded. No proof, no gift.</span></li></ol>
   <p class="lead">Put your phone down so your whole body is in frame. The camera, the timer and the voice will guide you.</p>
   <div class="row">
@@ -341,7 +341,7 @@ function proof(){
   tag.textContent='Approved';
   const url=URL.createObjectURL(clip);
   show(`<div class="eyebrow">Proof approved</div>
-  <h2>Verified. That's the real TaLF Saints.</h2>
+  <h2>Verified. That's the real TalF Saints.</h2>
   <video class="vid" src="${url}" controls playsinline></video>
   <p class="lead">sebii_sw reviewed the footage. Planche: clean. Press: approved. Clearance granted.</p>
   <button class="btn" id="toGift">Open the file</button>`);
@@ -350,7 +350,7 @@ function proof(){
 function reveal(){
   setProg(Q.length);tag.textContent='Clearance granted';
   stage.innerHTML=`<section class="screen reveal">
-    <figure class="hero"><img src="img/handshake.jpg" alt="TaLF Saints and sebii_sw shaking hands"><figcaption><span>Happy birthday,</span><b>brother.</b></figcaption></figure>
+    <figure class="hero"><img src="img/handshake.jpg" alt="TalF Saints and sebii_sw shaking hands"><figcaption><span>Happy birthday,</span><b>brother.</b></figcaption></figure>
     <div class="eyebrow">Clearance granted</div>
     <h2>Remember the last question? This is the answer.</h2>
     <p class="quote">You forged the body. Now it’s time to craft the signature.</p>
@@ -388,7 +388,7 @@ function archive(){
   setBg(null);tag.textContent='The archive';setProg(Q.length);
   show(`<div class="eyebrow">Evidence on file</div>
   <h2>The archive</h2>
-  <div class="slides" id="slides" role="region" aria-label="Photos of TaLF Saints and sebii_sw">
+  <div class="slides" id="slides" role="region" aria-label="Photos of TalF Saints and sebii_sw">
     ${ARCH.map((a,i)=>`<figure class="slide${i?'':' on'}"><img src="img/${a[0]}.jpg" alt="" style="object-position:${a[1]}"><figcaption>${a[2]}</figcaption></figure>`).join('')}
     <div class="dots">${ARCH.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>
   </div>
@@ -422,7 +422,7 @@ function track(e,k,v){try{if(window.clarity){if(k)clarity('set',k,String(v));cla
   const _tm=timer;timer=function(){_tm();setBg('wings')};
   const _ve=verify;verify=function(){_ve();setBg('wings');track('proof_submitted')};
   const _pr=proof;proof=function(){_pr();setBg(null)};
-  const _rv=reveal;reveal=function(){_rv();track('gift_revealed');setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TaLF Saints!'),400)};
+  const _rv=reveal;reveal=function(){_rv();track('gift_revealed');setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
 })();
 
 let musicOn=false;
