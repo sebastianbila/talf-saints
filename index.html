@@ -234,7 +234,8 @@ try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
 function say(t,rate=1){try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang='en-US';u.rate=rate;u.pitch=.85;speechSynthesis.speak(u)}catch(e){}}
 
 /* Countdown 3, hold 10, press. onEnd fires ~4.5s after "press". */
-function sequence(tn,ts,onEnd){
+function sequence(tn,ts,onEnd,quiet){
+  const say=quiet?()=>{}:window.say;
   let n=3;tn.classList.remove('go');tn.textContent=n;ts.textContent='Get ready';duck(true);
   say('Get in position. Three.');beep(660);
   const pre=setInterval(()=>{n--; if(n>0){tn.textContent=n;say(n===2?'Two.':'One.');beep(660)}else{clearInterval(pre);hold()}},1000);
@@ -313,7 +314,8 @@ async function record(facing){
     document.getElementById('camCtl').hidden=true;document.getElementById('recdot').hidden=false;
     window.musicHold=true;if(music)music.pause();
     rec.start(500);
-    sequence(document.getElementById('tn'),document.getElementById('ts'),()=>{try{rec.stop()}catch(e){}});
+    try{speechSynthesis.cancel()}catch(e){}
+    sequence(document.getElementById('tn'),document.getElementById('ts'),()=>{try{rec.stop()}catch(e){}},true);
   };
 }
 function timer(){
