@@ -89,7 +89,7 @@ a{color:var(--brass-hi)}
 .steps li{display:flex;gap:12px;align-items:baseline;padding:12px 14px;background:var(--panel);border:1px solid var(--line)}
 .steps b{font-family:var(--display);color:var(--brass);font-weight:500;letter-spacing:.1em}
 .rec input{position:absolute;width:1px;height:1px;opacity:0}
-.vid{width:100%;max-width:100%;max-height:60vh;background:#000;border:1px solid var(--line);display:block}
+.vid{width:100%;max-width:100%;max-height:42vh;background:#000;border:1px solid var(--line);display:block}
 .handle{font-family:var(--display);letter-spacing:.14em;color:var(--brass-hi);user-select:all}
 .err{margin:0;color:#f0a9a0;font-size:15px;min-height:1.2em}
 [hidden]{display:none!important}
@@ -97,7 +97,7 @@ a{color:var(--brass-hi)}
 .bgphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,11,.25) 0%,rgba(13,12,11,.62) 45%,rgba(13,12,11,.9) 100%)}
 .bgphoto.on{opacity:.8}.bgphoto.on.strong{opacity:1}
 .wrap{position:relative;z-index:1}
-.slides{position:relative;width:100%;aspect-ratio:4/5;max-height:62vh;background:#000;border:1px solid var(--line);overflow:hidden;cursor:pointer}
+.slides{position:relative;width:100%;aspect-ratio:4/5;max-height:calc(100svh - 360px);min-height:260px;background:#000;border:1px solid var(--line);overflow:hidden;cursor:pointer}
 .slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
 .slide.on{opacity:1}
 .slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 4s ease}
@@ -207,11 +207,12 @@ function ask(i){
     b.classList.add('picked',ok?'right':'wrong');opts.classList.add('done');setProg(i+1);
     if(has&&!ok){const r=opts.querySelector(`[data-k="${it.c}"]`);if(r)r.classList.add('answer')}
     if(has&&ok)score++;
-    try{beep(ok?990:220,ok?.12:.25,.18)}catch(e){}
+    try{ok?sfxRight():sfxWrong()}catch(e){}
     const last=i===Q.length-1;
     document.getElementById('after').innerHTML=`<div class="screen" style="gap:18px"><p class="verdict ${ok?'':'bad'}">${ok?it.v:it.w}</p>
       <button class="btn" id="next">${last?'Open the file':'Next'}</button></div>`;
     const n=document.getElementById('next');n.focus({preventScroll:true});
+    setTimeout(()=>n.scrollIntoView({behavior:'smooth',block:'end'}),80);
     n.onclick=()=>last?granting():ask(i+1);
   });
 }
@@ -232,6 +233,10 @@ let voice=null;
 function pickVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));voice=vs.find(v=>/(Daniel|Alex|Arthur|Aaron|Male|Google UK English Male)/i.test(v.name))||vs[0]||null}catch(e){}}
 try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
 /* Pre-recorded voice clips played through Web Audio: much lighter than the speech engine while the camera runs. */
+/* Sound effects */
+function tone(f1,f2,dur,type,vol,delay){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();const t=actx.currentTime+(delay||0),o=actx.createOscillator(),g=actx.createGain();o.type=type;o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+dur);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+dur+.02)}catch(e){}}
+function sfxWrong(){tone(300,140,.22,'sawtooth',.35);tone(220,90,.32,'square',.25,.2);try{navigator.vibrate&&navigator.vibrate([60,40,90])}catch(e){}}
+function sfxRight(){tone(784,784,.12,'triangle',.4);tone(1175,1175,.22,'triangle',.4,.11)}
 const VMAP={'Get in position. Three.':'ready','Two.':'two','One.':'one','Hold the planche.':'hold','Keep it locked.':'locked','Five. Lean forward.':'five','Three.':'three','Now press. To handstand!':'press','Saint confirmed.':'confirmed','Happy birthday, TalF Saints!':'bday'};
 const VOICE={};let curV=null,voiceLoading=false;
 function loadVoice(){
@@ -286,7 +291,7 @@ function bindRec(){
   const c=document.getElementById('cam');if(!c)return;
   let err=document.getElementById('recErr');
   if(!err){err=document.createElement('p');err.id='recErr';err.className='err';err.setAttribute('role','alert');(c.closest('.row')||c.closest('p')).after(err)}
-  const fail=t=>{err.textContent=t;c.value=''};
+  const fail=t=>{err.textContent=t;c.value='';sfxWrong()};
   c.onchange=e=>{
     const f=e.target.files&&e.target.files[0];if(!f)return;err.textContent='';
     const isVid=(f.type||'').startsWith('video/')||/\.(mp4|mov|m4v|webm|3gp|hevc|avi|mkv)$/i.test(f.name||'');
@@ -404,8 +409,7 @@ function archive(){
     ${ARCH.map((a,i)=>`<figure class="slide${i?'':' on'}"><img src="img/${a[0]}.jpg" alt="" style="object-position:${a[1]}"><figcaption>${a[2]}</figcaption></figure>`).join('')}
     <div class="dots">${ARCH.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>
   </div>
-  <p class="note">Tap the photo for the next one.</p>
-  <button class="btn" id="toTest">One last test</button>`);
+  <div class="row" style="justify-content:space-between"><button class="btn" id="toTest">One last test</button><span class="note">Tap the photo for the next one</span></div>`);
   const sl=[...document.querySelectorAll('.slide')],dots=[...document.querySelectorAll('.dots i')];let k=0;
   const go=n=>{sl[k].classList.remove('on');dots[k].classList.remove('on');k=(n+sl.length)%sl.length;sl[k].classList.add('on');dots[k].classList.add('on')};
   let t=setInterval(()=>go(k+1),3200);
