@@ -364,6 +364,7 @@ function proof(){
   <button class="btn" id="toGift">Open the file</button>`);
   document.getElementById('toGift').onclick=reveal;
 }
+const CERT_REAL=false; /* switched by golive.sh */
 function reveal(){
   setProg(Q.length);tag.textContent='Clearance granted';
   stage.innerHTML=`<section class="screen reveal">
@@ -371,9 +372,12 @@ function reveal(){
     <div class="eyebrow">Clearance granted</div>
     <h2>Remember the last question? This is the answer.</h2>
     <p class="quote">You forged the body. Now it’s time to craft the signature.</p>
-    <div class="sealed"><img class="cert" alt="Your certificate, sealed until sebii_sw hands it over" src="img/certificate-sealed.jpg"><div class="stamp"><b>Sealed</b><span>Delivered in person by sebii_sw</span></div></div>
+    ${CERT_REAL?`<img class="cert" alt="Your TalF Saints certificate" src="img/certificate.jpg">
     <div class="giftline"><div class="lb">Your gift</div><div class="v">A masterclass for two</div></div>
-    <p class="note">Your certificate is waiting. Ask sebii_sw when you can pick it up 😏</p>
+    <a class="btn" href="talfsaints_certificate.pdf" download="talfsaints_certificate.pdf">Download certificate</a>
+    <p class="note">This is your digital copy. The real one is already in your hands.</p>`:`<div class="sealed"><img class="cert" alt="Your certificate, sealed until sebii_sw hands it over" src="img/certificate-sealed.jpg"><div class="stamp"><b>Sealed</b><span>Delivered in person by sebii_sw</span></div></div>
+    <div class="giftline"><div class="lb">Your gift</div><div class="v">A masterclass for two</div></div>
+    <p class="note">Your certificate is waiting. Ask sebii_sw when you can pick it up 😏</p>`}
     <blockquote class="his"><p>“Some days can be more difficult, but you need to try even on these days, because they make you stronger.”</p><cite>You said that to me on October 7. Right back at you.</cite></blockquote>
     <p class="sign">Stay sharp, brother. From one saint to another<b>— sebii_sw</b></p>
     <button class="ghost" id="again" style="align-self:flex-start">Replay</button>
