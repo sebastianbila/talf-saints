@@ -316,28 +316,19 @@ function verify(){
   <h2 id="vl">Analysing planche angle…</h2>
   <div class="progress" id="vbar" style="gap:0"><i style="flex:none;width:0%;background:var(--brass);transition:width 10s linear"></i></div>
   <p class="note">This takes about 10 seconds.</p>`);
-  const steps=[[0,'Analysing planche angle…'],[2200,'Checking lockout and lean…'],[4400,'Measuring press to handstand…'],[6400,'Contacting sebii_sw…'],[9000,'sebii_sw says: legit.']];
+  const steps=[[0,'Analysing planche angle…'],[2200,'Checking lockout and lean…'],[4400,'Measuring press to handstand…'],[6400,'Sending to sebii_sw…'],[8000,'sebii_sw is reviewing…'],[9300,'sebii_sw says: legit.']];
   steps.forEach(([t,x])=>setTimeout(()=>{const el=document.getElementById('vl');if(el)el.textContent=x},t));
   requestAnimationFrame(()=>requestAnimationFrame(()=>{const i=document.querySelector('#vbar i');if(i)i.style.width='100%'}));
   setTimeout(()=>{beep(1320,.4,.3);proof()},10200);
 }
 function proof(){
-  tag.textContent='Proof received';
+  tag.textContent='Approved';
   const url=URL.createObjectURL(clip);
-  const canShare=!!(navigator.canShare&&(()=>{try{return navigator.canShare({files:[clip]})}catch(e){return false}})());
-  show(`<div class="eyebrow">Proof received</div>
+  show(`<div class="eyebrow">Proof approved</div>
   <h2>Verified. That's the real TalF Saints.</h2>
   <video class="vid" src="${url}" controls playsinline></video>
-  <p class="lead">sebii_sw wants to see it with his own eyes. Send him the video, then open your gift.</p>
-  <div class="row">
-    ${canShare?'<button class="btn" id="sendVid">Send to sebii_sw</button>':''}
-    <a class="${canShare?'ghost':'btn'}" href="${url}" download="${clip.name||'talf-saints-proof.mp4'}">Save video</a>
-    <a class="ghost" href="https://ig.me/m/sebii_sw" target="_blank" rel="noopener">Open Instagram DM</a>
-  </div>
-  <p class="note" id="saveMsg">${canShare?'Tap send, pick Instagram, then choose <span class="handle">sebii_sw</span>.':'Save the video, then send it to <span class="handle">sebii_sw</span> on Instagram.'}</p>
+  <p class="lead">sebii_sw reviewed the footage. Planche: clean. Press: approved. Clearance granted.</p>
   <button class="btn" id="toGift">Open the file</button>`);
-  if(canShare)document.getElementById('sendVid').onclick=async()=>{
-    try{await navigator.share({files:[clip],text:'Planche verified. TalF Saints.'})}catch(e){if(e&&e.name!=='AbortError')document.getElementById('saveMsg').textContent='Sharing didn’t open. Save the video and send it on Instagram.'}};
   document.getElementById('toGift').onclick=reveal;
 }
 function reveal(){
@@ -346,9 +337,9 @@ function reveal(){
     <figure class="hero"><img src="img/handshake.jpg" alt="TalF Saints and sebii_sw shaking hands"><figcaption><span>Happy birthday,</span><b>brother.</b></figcaption></figure>
     <div class="eyebrow">Clearance granted</div>
     <h2>Remember the last question? This is the answer.</h2>
-    <p class="quote">You forged the body. Now craft the signature. Go smell like a legend.</p>
+    <p class="quote">You forged the body. Now it’s time to craft the signature.</p>
     <div class="sealed"><img class="cert" alt="Your certificate, sealed until sebii_sw hands it over" src="img/certificate-sealed.jpg"><div class="stamp"><b>Sealed</b><span>Delivered in person by sebii_sw</span></div></div>
-    <div class="giftline"><div class="lb">Your gift</div><div class="v">A perfume masterclass for two</div></div>
+    <div class="giftline"><div class="lb">Your gift</div><div class="v">A masterclass for two</div></div>
     <p class="note">Your certificate is waiting. Ask sebii_sw when you can pick it up 😏</p>
     <blockquote class="his"><p>“Some days can be more difficult, but you need to try even on these days, because they make you stronger.”</p><cite>You said that to me on October 7. Right back at you.</cite></blockquote>
     <p class="sign">Stay sharp, brother. From one saint to another<b>— sebii_sw</b></p>
