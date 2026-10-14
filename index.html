@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0d0c0b">
+<title>TALF SAINTS Birthday File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+/* Layout: one centred column "dossier" on a dark field, one question per screen, certificate reveal at the end */
+:root{
+  --ink:#0d0c0b; --panel:#161413; --line:rgba(198,164,108,.32);
+  --brass:#c6a46c; --brass-hi:#e6cf9f; --bur:#3a0f19; --bur-edge:#8a2a3c;
+  --txt:#e9e1d3; --mut:#8f8576;
+  --display:'Oswald','Arial Narrow',Impact,sans-serif;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --body:'Manrope','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--ink);color:var(--txt);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0;
+  background-image:radial-gradient(900px 600px at 80% -10%,#2a2320 0%,transparent 60%),radial-gradient(700px 500px at -10% 110%,#2a0c14 0%,transparent 60%)}
+.wrap{max-width:680px;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px;min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mono{display:flex;align-items:center;gap:12px}
+.mono b{width:40px;height:40px;border:1.5px solid var(--brass);display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-weight:500;font-size:19px;color:var(--brass-hi)}
+.mono span{font-family:var(--display);font-size:13px;letter-spacing:.4em;white-space:nowrap;color:var(--txt)}
+.file{font-family:var(--display);font-size:11px;letter-spacing:.24em;white-space:nowrap;text-align:right;color:var(--mut);text-transform:uppercase}
+.progress{display:flex;gap:6px}
+.progress i{flex:1;height:3px;background:rgba(198,164,108,.18);transition:background .4s}
+.progress i.on{background:var(--brass)}
+main{flex:1;display:flex;flex-direction:column;justify-content:center}
+.screen{display:flex;flex-direction:column;gap:22px;animation:in .5s ease both}
+@keyframes in{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:var(--display);font-size:13px;letter-spacing:.38em;color:var(--brass);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(52px,14vw,104px);line-height:.92;margin:0;letter-spacing:.005em;text-wrap:balance}
+h1 em{display:block;font-style:normal;-webkit-text-stroke:1.4px var(--brass-hi);color:transparent}
+h2{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:clamp(28px,7vw,42px);line-height:1.08;margin:0;text-wrap:balance}
+.lead{color:#cfc5b4;font-size:17px;max-width:56ch;margin:0}
+.quote{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--brass-hi);margin:0}
+.btn{appearance:none;border:0;cursor:pointer;font-family:var(--display);font-weight:500;font-size:16px;letter-spacing:.28em;text-transform:uppercase;
+  background:var(--bur);color:var(--txt);border-left:4px solid var(--bur-edge);padding:18px 26px;align-self:flex-start;transition:background .2s,transform .1s}
+.btn:hover{background:#4a1421}.btn:active{transform:scale(.98)}
+.btn:focus-visible,.opt:focus-visible,.ghost:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{appearance:none;text-align:left;cursor:pointer;background:var(--panel);color:var(--txt);border:1px solid var(--line);padding:16px 18px;font-family:var(--body);font-size:16px;font-weight:500;display:flex;gap:14px;align-items:baseline;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--brass)}
+.opt .k{font-family:var(--display);color:var(--brass);font-size:14px;letter-spacing:.1em;flex:none;width:18px}
+.opt.picked{background:var(--bur);border-color:var(--bur-edge)}
+.opts.done .opt:not(.picked){opacity:.35;pointer-events:none}
+.opt.right{background:#2c2414;border-color:var(--brass)}
+.opt.wrong{background:#3a0f19;border-color:#c2465a}
+.opts.done .opt.answer{opacity:1;border-color:var(--brass);border-style:dashed}
+.verdict.bad{border-left-color:#c2465a;color:#f0c4c4}
+.verdict{border-left:3px solid var(--brass);padding:4px 0 4px 16px;font-family:var(--serif);font-style:italic;font-size:21px;color:var(--brass-hi);margin:0}
+.qnum{font-family:var(--display);font-size:13px;letter-spacing:.3em;color:var(--mut)}
+.cert{width:100%;max-width:100%;display:block;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.reveal .cert{animation:rise 1.1s cubic-bezier(.2,.7,.2,1) both .2s}
+@keyframes rise{from{opacity:.001;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.ticket{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ticket>div{padding:14px 12px 14px 0;min-width:0}
+.ticket>div:nth-child(2n){padding-left:14px;border-left:1px solid var(--line)}
+.ticket>div:nth-child(n+3){border-top:1px solid var(--line)}
+.lb{font-family:var(--display);font-size:11px;letter-spacing:.3em;color:var(--mut);text-transform:uppercase}
+.v{font-family:var(--display);font-size:22px;letter-spacing:.05em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.v.code{color:var(--brass-hi);letter-spacing:.18em}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.ghost{appearance:none;cursor:pointer;background:transparent;border:1px solid var(--line);color:var(--txt);padding:12px 16px;font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.ghost{text-decoration:none;display:inline-block}.ghost:hover{border-color:var(--brass)}
+a{color:var(--brass-hi)}
+.sign{text-align:right;font-family:var(--serif);font-style:italic;color:#cfc5b4;font-size:19px;margin:0}
+.sign b{display:block;font-family:var(--display);font-style:normal;font-weight:400;font-size:15px;letter-spacing:.24em;color:var(--brass-hi);margin-top:4px}
+.his{margin:0;padding:20px 22px;background:var(--panel);border:1px solid var(--line)}.his p{margin:0;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.45;color:var(--txt)}.his cite{display:block;margin-top:10px;font-style:normal;font-family:var(--display);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
+.timer{font-family:var(--display);font-weight:600;font-size:clamp(96px,30vw,180px);line-height:1;color:var(--txt);font-variant-numeric:tabular-nums;text-align:center;margin:0}
+.timer.go{color:var(--brass-hi)}
+.tstate{text-align:center;font-family:var(--display);letter-spacing:.3em;text-transform:uppercase;color:var(--brass);font-size:14px;margin:0}
+.steps{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.steps li{display:flex;gap:12px;align-items:baseline;padding:12px 14px;background:var(--panel);border:1px solid var(--line)}
+.steps b{font-family:var(--display);color:var(--brass);font-weight:500;letter-spacing:.1em}
+.rec input{position:absolute;width:1px;height:1px;opacity:0}
+.vid{width:100%;max-width:100%;max-height:60vh;background:#000;border:1px solid var(--line);display:block}
+.handle{font-family:var(--display);letter-spacing:.14em;color:var(--brass-hi);user-select:all}
+.err{margin:0;color:#f0a9a0;font-size:15px;min-height:1.2em}
+[hidden]{display:none!important}
+.bgphoto{position:fixed;inset:0;z-index:0;background:center/cover no-repeat;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.bgphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,11,.25) 0%,rgba(13,12,11,.62) 45%,rgba(13,12,11,.9) 100%)}
+.bgphoto.on{opacity:.8}.bgphoto.on.strong{opacity:1}
+.wrap{position:relative;z-index:1}
+.slides{position:relative;width:100%;aspect-ratio:4/5;max-height:62vh;background:#000;border:1px solid var(--line);overflow:hidden;cursor:pointer}
+.slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 4s ease}
+.slide.on img{transform:scale(1)}
+.slide figcaption{position:absolute;left:0;right:0;bottom:0;padding:44px 18px 34px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;color:var(--txt)}
+.dots{position:absolute;left:18px;bottom:14px;display:flex;gap:6px;z-index:2}
+.dots i{width:16px;height:3px;background:rgba(243,236,224,.3)}.dots i.on{background:var(--brass-hi)}
+.hero{position:relative;margin:0;border:1px solid var(--line);overflow:hidden}
+.hero img{display:block;width:100%;max-height:52vh;object-fit:cover;object-position:50% 35%}
+.hero figcaption{position:absolute;left:0;right:0;bottom:0;padding:60px 18px 18px;background:linear-gradient(180deg,transparent,rgba(13,12,11,.92))}
+.hero span{display:block;font-family:var(--serif);font-style:italic;font-size:22px;color:var(--brass-hi)}
+.hero b{display:block;font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(44px,13vw,76px);line-height:.95;color:var(--txt)}
+.confetti{position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none}
+.gate{position:fixed;inset:0;z-index:50;border:0;margin:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;background:radial-gradient(600px 400px at 50% 40%,#2a2320,transparent 70%),var(--ink);color:var(--txt);padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(16px,env(safe-area-inset-left,0px));transition:opacity .6s}
+.gate.out{opacity:0;pointer-events:none}
+.gmono{width:64px;height:64px;border:1.5px solid var(--brass);display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:30px;color:var(--brass-hi)}
+.gname{font-family:var(--display);font-size:20px;letter-spacing:.5em;padding-left:.5em}
+.gfile{font-family:var(--display);font-size:12px;letter-spacing:.3em;color:var(--mut);text-transform:uppercase}
+.gtap{margin-top:28px;font-family:var(--display);font-size:14px;letter-spacing:.4em;text-transform:uppercase;color:var(--brass-hi);padding:14px 24px;border:1px solid var(--line);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{border-color:var(--brass);box-shadow:0 0 24px rgba(198,164,108,.25)}}
+html,body{margin:0}
+.cam-wrap{position:relative;width:100%;aspect-ratio:3/4;max-height:68vh;background:#000;border:1px solid var(--line);overflow:hidden}
+.cam-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cam-wrap video.mirror{transform:scaleX(-1)}
+.overlay{position:absolute;left:0;right:0;bottom:0;padding:18px 16px 20px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.8));display:flex;flex-direction:column;gap:6px}
+.overlay .timer{font-size:clamp(64px,22vw,120px);text-shadow:0 2px 24px #000}
+.recdot{position:absolute;top:14px;left:14px;font-family:var(--display);font-size:12px;letter-spacing:.3em;color:#fff;background:rgba(160,20,30,.85);padding:6px 10px 6px 24px}
+.recdot::before{content:"";position:absolute;left:9px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#fff;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.linkish{color:var(--brass-hi);text-decoration:underline;cursor:pointer;position:relative}
+.linkish input{position:absolute;width:1px;height:1px;opacity:0}
+a.btn{text-decoration:none;display:inline-block}
+.snd{appearance:none;background:transparent;border:1px solid var(--line);color:var(--brass-hi);font-family:var(--display);font-size:11px;letter-spacing:.24em;padding:8px 10px;cursor:pointer}
+.sealed{position:relative;overflow:hidden;border:1px solid var(--line)}
+.sealed .cert{border:0;box-shadow:none;filter:saturate(.8)}
+.stamp{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px}
+.stamp b{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.32em;padding:10px 22px 10px calc(22px + .32em);border:2px solid var(--brass-hi);color:var(--brass-hi);font-size:clamp(26px,8vw,44px);transform:rotate(-8deg);background:rgba(13,12,11,.55);box-shadow:0 0 0 6px rgba(13,12,11,.35),0 0 0 7px rgba(230,207,159,.5)}
+.stamp span{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--txt);text-shadow:0 2px 10px #000;margin-top:14px}
+.giftline{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
+.giftline .v{font-size:24px}
+.note{font-size:14px;color:var(--mut);margin:0}
+footer{font-family:var(--display);font-size:11px;letter-spacing:.4em;color:rgba(198,164,108,.5);text-align:center;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bgphoto" id="bgA" aria-hidden="true"></div><div class="bgphoto" id="bgB" aria-hidden="true"></div>
+<audio id="music" src="music.mp3" loop preload="auto"></audio>
+<button class="gate" id="gate" style="background:linear-gradient(180deg,rgba(13,12,11,.15),rgba(13,12,11,.55) 45%,rgba(13,12,11,.95) 85%),url(img/crouch.jpg) 50% 55%/cover,var(--ink)"><span class="gmono">TS</span><span class="gname">TALF SAINTS</span><span class="gfile">Classified file · Birthday clearance</span><span class="gtap">Tap to enter</span></button>
+<div class="wrap">
+  <header>
+    <div class="mono"><b>TS</b><span>TALF SAINTS</span></div>
+    <div class="file" id="fileTag">Classified</div>
+  </header>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <main id="stage"></main>
+  <footer>Truth · Wisdom · Authenticity</footer>
+</div>
+
+<script>
+const Q=[
+ {q:"Who sends “Вийдем на каву? ☕️” more often?",o:["Me","Sebastian","Nobody. We just appear at the coffee spot"],c:0,v:"Correct. 38 invites against his 19. Certified coffee initiator.",w:"Wrong. It’s you: 38 coffee invites against his 19."},
+ {q:"Before coffee, your classic offer is…",o:["“Ідем до мене, накормлю”","“Let's skip breakfast”","“You're paying”"],c:0,v:"Correct. Feeding your bro first. A true saint.",w:"Wrong. Classic you: “Ідем до мене, накормлю.”"},
+ {q:"Why can't Sebastian come out right now?",o:["Gym","A meeting","Sleeping"],c:1,v:"Correct. “Щас мітинг закінчу.” We know.",w:"Wrong. It’s always a meeting. “Щас мітинг закінчу.”"},
+ {q:"The skill Sebastian still can't hold?",o:["Front lever","Planche","Handstand"],c:1,v:"Not anymore bro 😁",w:"Wrong. The answer was the planche… and even that's outdated. Not anymore bro 😁"},
+ {q:"When Sebastian said “I can't even hold the planche”, you replied…",o:["“Skill issue”","“Some days can be more difficult… they make you stronger”","“Just eat more”"],c:1,v:"Correct. Your words. And they worked.",w:"Wrong. You said: “Some days can be more difficult… they make you stronger.” And it worked."},
+ {q:"Your signature reaction?",o:["“Ноооо”","“Чотко”","“Капець”"],c:0,v:"Correct. Ноооо. Your trademark. We counted.",w:"Wrong. It’s “Ноооо”. Your trademark. We counted."},
+ {q:"Which word do you say way more than Sebastian?",o:["бро","чотко","норм"],c:0,v:"Correct. Бро. 56 against 11. He owns “чотко”: 31 to 0.",w:"Wrong. It’s “бро”: 56 against 11. He owns “чотко”: 31 to 0."},
+ {q:"How many messages did we send each other in six months?",o:["About 1,300","About 13,000","About 130,000"],c:1,v:"Correct. About 13,000. Basically a full-time job.",w:"Wrong. About 13,000. Basically a full-time job."},
+ {q:"Who texts more?",o:["Me","Sebastian","Dead even"],c:0,v:"Correct. You, by about 1,500 messages.",w:"Wrong. You do, by about 1,500 messages."},
+ {q:"Your mom's perfume that you love?",o:["Sauvage","Symphony","Baccarat"],c:1,v:"Correct. Symphony. Hold that thought.",w:"Wrong. It’s Symphony. Hold that thought."},
+ {q:"When you leave a room, what should people remember?",o:["The posture","The handshake","Something they can't quite name…"],v:"Exactly. Let's make it happen."}
+];
+let score=0;const scored=Q.filter(x=>x.c!==undefined).length;
+const stage=document.getElementById('stage'),prog=document.getElementById('progress'),tag=document.getElementById('fileTag');
+for(let i=0;i<Q.length;i++){prog.appendChild(document.createElement('i'))}
+function setProg(n){[...prog.children].forEach((el,i)=>el.classList.toggle('on',i<n))}
+function show(html){stage.innerHTML='<section class="screen">'+html+'</section>';const f=stage.querySelector('button');if(f)f.focus({preventScroll:true});window.scrollTo({top:0})}
+function intro(){
+  setProg(0);tag.textContent='Classified';
+  show(`<div class="eyebrow">Birthday clearance required</div>
+  <h1>Happy<em>Birthday</em></h1>
+  <p class="lead">Something was prepared for you. Before we hand it over, we need to confirm you are the real TALF SAINTS. Eleven questions. Get them wrong and we’ll know.</p>
+  <button class="btn" id="go">Begin verification</button>`);
+  document.getElementById('go').onclick=()=>{startMusic();ask(0)};
+}
+function ask(i){
+  if(i===0)score=0;
+  setProg(i);tag.textContent=`Question ${i+1} of ${Q.length}`;
+  const it=Q[i];
+  show(`<div class="qnum">${String(i+1).padStart(2,'0')} / ${String(Q.length).padStart(2,'0')}</div>
+  <h2>${it.q}</h2>
+  <div class="opts" id="opts">${it.o.map((t,k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${t}</span></button>`).join('')}</div>
+  <div id="after"></div>`);
+  const opts=document.getElementById('opts');
+  opts.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(opts.classList.contains('done'))return;
+    const k=+b.dataset.k,has=it.c!==undefined,ok=!has||k===it.c;
+    b.classList.add('picked',ok?'right':'wrong');opts.classList.add('done');setProg(i+1);
+    if(has&&!ok){const r=opts.querySelector(`[data-k="${it.c}"]`);if(r)r.classList.add('answer')}
+    if(has&&ok)score++;
+    try{beep(ok?990:220,ok?.12:.25,.18)}catch(e){}
+    const last=i===Q.length-1;
+    document.getElementById('after').innerHTML=`<div class="screen" style="gap:18px"><p class="verdict ${ok?'':'bad'}">${ok?it.v:it.w}</p>
+      <button class="btn" id="next">${last?'Open the file':'Next'}</button></div>`;
+    const n=document.getElementById('next');n.focus({preventScroll:true});
+    n.onclick=()=>last?granting():ask(i+1);
+  });
+}
+function granting(){
+  tag.textContent='Verifying…';
+  show(`<div class="eyebrow">Analysing answers</div><h2 id="gl">Checking your file…</h2>`);
+  const lines=[`Score: ${score}/${scored} correct`,'Discipline: confirmed','Wisdom: confirmed','Authenticity: confirmed','Identity: TalF Saints'];
+  let k=0;const gl=document.getElementById('gl');
+  const t=setInterval(()=>{gl.textContent=lines[k++];if(k===lines.length){clearInterval(t);setTimeout(archive,900)}},650);
+}
+
+let clip=null;
+let actx=null;
+const music=document.getElementById('music');
+function duck(on){if(!music||music.paused)return;music.volume=on?.08:.45}
+function beep(freq=880,dur=.12,vol=.25){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=freq;o.type='sine';g.gain.setValueAtTime(vol,actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+dur);o.connect(g).connect(actx.destination);o.start();o.stop(actx.currentTime+dur)}catch(e){}}
+let voice=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));voice=vs.find(v=>/(Daniel|Alex|Arthur|Aaron|Male|Google UK English Male)/i.test(v.name))||vs[0]||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function say(t,rate=1){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang='en-US';u.rate=rate;u.pitch=.85;speechSynthesis.speak(u)}catch(e){}}
+
+/* Countdown 3, hold 10, press. onEnd fires ~4.5s after "press". */
+function sequence(tn,ts,onEnd){
+  let n=3;tn.classList.remove('go');tn.textContent=n;ts.textContent='Get ready';duck(true);
+  say('Get in position. Three.');beep(660);
+  const pre=setInterval(()=>{n--; if(n>0){tn.textContent=n;say(n===2?'Two.':'One.');beep(660)}else{clearInterval(pre);hold()}},1000);
+  const cues={7:'Keep it locked.',5:'Five. Lean forward.',3:'Three.',2:'Two.',1:'One.'};
+  function hold(){
+    let k=10;tn.textContent=k;tn.classList.add('go');ts.textContent='Hold the planche';
+    say('Hold the planche.');beep(990,.25,.3);
+    const h=setInterval(()=>{k--;tn.textContent=k;
+      if(cues[k])say(cues[k]); if(k<=3&&k>0)beep(880);
+      if(k<=0){clearInterval(h);beep(1320,.5,.35);
+        tn.textContent='Press';ts.textContent='Now press to handstand';say('Now press. To handstand!',1.05);
+        setTimeout(()=>say('Saint confirmed.'),3200);
+        setTimeout(()=>{duck(false);onEnd&&onEnd()},4600);
+      }},1000);
+  }
+}
+
+const canLive=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);
+function uploadLink(t){return `<label class="linkish" for="cam">${t}<input id="cam" type="file" accept="video/*"></label>`}
+function challenge(){
+  tag.textContent='Final test';
+  show(`<div class="eyebrow">One more moment</div>
+  <h2>To prove you're the real TalF Saints…</h2>
+  <ol class="steps"><li><b>01</b><span>Hold a full planche for 10 seconds.</span></li><li><b>02</b><span>Then press to handstand.</span></li><li><b>03</b><span>It all gets recorded. No proof, no gift.</span></li></ol>
+  <p class="lead">Put your phone down so your whole body is in frame. The camera, the timer and the voice will guide you.</p>
+  <div class="row">
+    ${canLive?'<button class="btn" id="recLive">Start the test</button>':`<label class="btn rec" for="cam">Record or upload proof<input id="cam" type="file" accept="video/*"></label>`}
+    <button class="ghost" id="useTimer">Practise first</button>
+  </div>
+  ${canLive?`<p class="note">Rather film it with your camera app? ${uploadLink('Upload a video instead')}</p>`:''}`);
+  bindRec();
+  if(canLive)document.getElementById('recLive').onclick=()=>record('user');
+  document.getElementById('useTimer').onclick=timer;
+}
+function bindRec(){
+  const c=document.getElementById('cam');if(!c)return;
+  let err=document.getElementById('recErr');
+  if(!err){err=document.createElement('p');err.id='recErr';err.className='err';err.setAttribute('role','alert');(c.closest('.row')||c.closest('p')).after(err)}
+  const fail=t=>{err.textContent=t;c.value=''};
+  c.onchange=e=>{
+    const f=e.target.files&&e.target.files[0];if(!f)return;err.textContent='';
+    const isVid=(f.type||'').startsWith('video/')||/\.(mp4|mov|m4v|webm|3gp|hevc|avi|mkv)$/i.test(f.name||'');
+    if(!isVid){fail('That’s not a video. Photos don’t count, saint. Upload a video of the planche.');return}
+    const v=document.createElement('video');v.preload='metadata';v.muted=true;const u=URL.createObjectURL(f);
+    let done=false;const go=ok=>{if(done)return;done=true;URL.revokeObjectURL(u);if(ok){clip=f;verify()}};
+    v.onloadedmetadata=()=>{const d=v.duration;if(isFinite(d)&&d<5){done=true;URL.revokeObjectURL(u);fail('Only '+Math.round(d)+' seconds? A 10-second planche needs a longer video.')}else go(true)};
+    v.onerror=()=>go(true);setTimeout(()=>go(true),4000);v.src=u;
+  };
+}
+let stream=null;
+function stopStream(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
+async function record(facing){
+  tag.textContent='Recording';
+  show(`<div class="cam-wrap"><video id="live" autoplay playsinline muted class="${facing==='user'?'mirror':''}"></video>
+    <span class="recdot" id="recdot" hidden>REC</span>
+    <div class="overlay"><p class="timer" id="tn">10</p><p class="tstate" id="ts">Whole body in frame? Tap start.</p></div></div>
+  <div class="row" id="camCtl"><button class="btn" id="go" disabled>Start</button><button class="ghost" id="flip">Switch camera</button><button class="ghost" id="back">Back</button></div>
+  <p class="err" id="camErr" role="alert"></p>`);
+  const live=document.getElementById('live'),err=document.getElementById('camErr'),go=document.getElementById('go');
+  document.getElementById('back').onclick=()=>{stopStream();challenge()};
+  document.getElementById('flip').onclick=()=>{stopStream();record(facing==='user'?'environment':'user')};
+  stopStream();
+  const vid={facingMode:facing,width:{ideal:1280},height:{ideal:720}};
+  try{stream=await navigator.mediaDevices.getUserMedia({video:vid,audio:true})}
+  catch(e1){try{stream=await navigator.mediaDevices.getUserMedia({video:vid})}catch(e){
+    const blocked=e&&(e.name==='NotAllowedError'||e.name==='SecurityError');
+    err.innerHTML=(blocked?'Camera access is blocked. Allow the camera for this site in your browser settings and try again, or ':'The camera couldn’t start. ')+uploadLink('upload a video instead')+'.';
+    bindRec();go.hidden=true;return}}
+  live.srcObject=stream;go.disabled=false;
+  go.onclick=()=>{
+    const types=['video/mp4;codecs=avc1','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+    const mt=types.find(t=>{try{return MediaRecorder.isTypeSupported(t)}catch(e){return false}})||'';
+    let rec;try{rec=mt?new MediaRecorder(stream,{mimeType:mt}):new MediaRecorder(stream)}catch(e){err.innerHTML='Recording isn’t supported here. '+uploadLink('Upload a video instead')+'.';bindRec();return}
+    const chunks=[];rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+    rec.onstop=()=>{const type=rec.mimeType||mt||'video/webm';const ext=/mp4/.test(type)?'mp4':'webm';
+      clip=new File([new Blob(chunks,{type})],'talf-saints-proof.'+ext,{type});stopStream();verify()};
+    document.getElementById('camCtl').hidden=true;document.getElementById('recdot').hidden=false;
+    rec.start(500);
+    sequence(document.getElementById('tn'),document.getElementById('ts'),()=>{try{rec.stop()}catch(e){}});
+  };
+}
+function timer(){
+  tag.textContent='Practice';
+  show(`<div class="eyebrow">Practice run</div>
+  <p class="timer" id="tn">10</p><p class="tstate" id="ts">Nothing is recorded. Tap start.</p>
+  <div class="row" style="justify-content:center"><button class="btn" id="tgo" style="align-self:center">Start</button></div>`);
+  const tn=document.getElementById('tn'),ts=document.getElementById('ts'),b=document.getElementById('tgo');
+  b.onclick=()=>{b.hidden=true;sequence(tn,ts,()=>{b.hidden=false;b.textContent=canLive?'Ready. Start the test':'Ready. Upload proof';b.onclick=canLive?()=>record('user'):challenge})};
+}
+function verify(){
+  tag.textContent='Verifying proof';
+  show(`<div class="eyebrow">Verifying proof</div>
+  <h2 id="vl">Analysing planche angle…</h2>
+  <div class="progress" id="vbar" style="gap:0"><i style="flex:none;width:0%;background:var(--brass);transition:width 10s linear"></i></div>
+  <p class="note">This takes about 10 seconds.</p>`);
+  const steps=[[0,'Analysing planche angle…'],[2200,'Checking lockout and lean…'],[4400,'Measuring press to handstand…'],[6400,'Contacting sebii_sw…'],[9000,'sebii_sw says: legit.']];
+  steps.forEach(([t,x])=>setTimeout(()=>{const el=document.getElementById('vl');if(el)el.textContent=x},t));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{const i=document.querySelector('#vbar i');if(i)i.style.width='100%'}));
+  setTimeout(()=>{beep(1320,.4,.3);proof()},10200);
+}
+function proof(){
+  tag.textContent='Proof received';
+  const url=URL.createObjectURL(clip);
+  const canShare=!!(navigator.canShare&&(()=>{try{return navigator.canShare({files:[clip]})}catch(e){return false}})());
+  show(`<div class="eyebrow">Proof received</div>
+  <h2>Verified. That's the real TalF Saints.</h2>
+  <video class="vid" src="${url}" controls playsinline></video>
+  <p class="lead">sebii_sw wants to see it with his own eyes. Send him the video, then open your gift.</p>
+  <div class="row">
+    ${canShare?'<button class="btn" id="sendVid">Send to sebii_sw</button>':''}
+    <a class="${canShare?'ghost':'btn'}" href="${url}" download="${clip.name||'talf-saints-proof.mp4'}">Save video</a>
+    <a class="ghost" href="https://ig.me/m/sebii_sw" target="_blank" rel="noopener">Open Instagram DM</a>
+  </div>
+  <p class="note" id="saveMsg">${canShare?'Tap send, pick Instagram, then choose <span class="handle">sebii_sw</span>.':'Save the video, then send it to <span class="handle">sebii_sw</span> on Instagram.'}</p>
+  <button class="btn" id="toGift">Open the file</button>`);
+  if(canShare)document.getElementById('sendVid').onclick=async()=>{
+    try{await navigator.share({files:[clip],text:'Planche verified. TalF Saints.'})}catch(e){if(e&&e.name!=='AbortError')document.getElementById('saveMsg').textContent='Sharing didn’t open. Save the video and send it on Instagram.'}};
+  document.getElementById('toGift').onclick=reveal;
+}
+function reveal(){
+  setProg(Q.length);tag.textContent='Clearance granted';
+  stage.innerHTML=`<section class="screen reveal">
+    <figure class="hero"><img src="img/handshake.jpg" alt="TalF Saints and sebii_sw shaking hands"><figcaption><span>Happy birthday,</span><b>brother.</b></figcaption></figure>
+    <div class="eyebrow">Clearance granted</div>
+    <h2>Remember the last question? This is the answer.</h2>
+    <p class="quote">You forged the body. Now craft the signature. Go smell like a legend.</p>
+    <div class="sealed"><img class="cert" alt="Your certificate, sealed until sebii_sw hands it over" src="img/certificate-sealed.jpg"><div class="stamp"><b>Sealed</b><span>Delivered in person by sebii_sw</span></div></div>
+    <div class="giftline"><div class="lb">Your gift</div><div class="v">A perfume masterclass for two</div></div>
+    <p class="note">Your certificate is waiting. Ask sebii_sw when you can pick it up 😏</p>
+    <blockquote class="his"><p>“Some days can be more difficult, but you need to try even on these days, because they make you stronger.”</p><cite>You said that to me on October 7. Right back at you.</cite></blockquote>
+    <p class="sign">Stay sharp, brother. From one saint to another<b>— sebii_sw</b></p>
+    <button class="ghost" id="again" style="align-self:flex-start">Replay</button>
+  </section>`;
+  document.getElementById('again').onclick=intro;
+  window.scrollTo({top:0});
+}
+/* ---------- Photos, archive, finale ---------- */
+const Q_BG=[null,'duo-wall','crouch','duo-car',null,'duo-walk',null,'duo-white',null,'jacket',null];
+const ARCH=[
+  ['duo-heart','50% 45%','56 times “бро” in six months. This is why.'],
+  ['duo-wall','60% 40%','Waiting for someone to say “Вийдем на каву?”'],
+  ['duo-car','55% 60%','No car: Parkland. Car: freedom.'],
+  ['duo-walk','50% 30%','Sebastian explaining why he’s late. (Мітинг.)'],
+  ['duo-white','50% 40%','Two saints. One wall.'],
+  ['duo-view','50% 55%','Same view. Next goal.']
+];
+[...Q_BG.filter(Boolean),'handshake'].forEach(n=>{const i=new Image();i.src='img/'+n+'.jpg'});
+let bgFlip=false;
+function setBg(name,strong){
+  const a=document.getElementById('bgA'),b=document.getElementById('bgB');if(!a)return;
+  const show=bgFlip?a:b,hide=bgFlip?b:a;bgFlip=!bgFlip;
+  hide.classList.remove('on','strong');
+  if(!name){show.classList.remove('on','strong');return}
+  show.style.backgroundImage=`url(img/${name}.jpg)`;show.classList.toggle('strong',!!strong);
+  requestAnimationFrame(()=>show.classList.add('on'));
+}
+function archive(){
+  setBg(null);tag.textContent='The archive';setProg(Q.length);
+  show(`<div class="eyebrow">Evidence on file</div>
+  <h2>The archive</h2>
+  <div class="slides" id="slides" role="region" aria-label="Photos of TalF Saints and sebii_sw">
+    ${ARCH.map((a,i)=>`<figure class="slide${i?'':' on'}"><img src="img/${a[0]}.jpg" alt="" style="object-position:${a[1]}"><figcaption>${a[2]}</figcaption></figure>`).join('')}
+    <div class="dots">${ARCH.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>
+  </div>
+  <p class="note">Tap the photo for the next one.</p>
+  <button class="btn" id="toTest">One last test</button>`);
+  const sl=[...document.querySelectorAll('.slide')],dots=[...document.querySelectorAll('.dots i')];let k=0;
+  const go=n=>{sl[k].classList.remove('on');dots[k].classList.remove('on');k=(n+sl.length)%sl.length;sl[k].classList.add('on');dots[k].classList.add('on')};
+  let t=setInterval(()=>go(k+1),3200);
+  document.getElementById('slides').onclick=()=>{clearInterval(t);go(k+1);t=setInterval(()=>go(k+1),3200)};
+  document.getElementById('toTest').onclick=()=>{clearInterval(t);challenge()};
+}
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const c=document.createElement('canvas');c.className='confetti';document.body.appendChild(c);
+  const x=c.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1);
+  const W=()=>innerWidth,H=()=>innerHeight;c.width=W()*dpr;c.height=H()*dpr;x.scale(dpr,dpr);
+  const cols=['#c6a46c','#e6cf9f','#8a2a3c','#5e1626','#f3ece0'];const P=[];
+  const burst=(n,ox)=>{for(let i=0;i<n;i++)P.push({x:ox,y:H()*0.35,vx:(Math.random()-.5)*11,vy:-Math.random()*13-4,w:5+Math.random()*7,h:8+Math.random()*10,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[i%cols.length]})};
+  burst(140,W()*.5);setTimeout(()=>burst(90,W()*.2),450);setTimeout(()=>burst(90,W()*.8),800);
+  const t0=performance.now();
+  (function f(t){x.clearRect(0,0,W(),H());P.forEach(p=>{p.vy+=.28;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h*Math.abs(Math.cos(p.r)));x.restore()});
+    if(t-t0<5200)requestAnimationFrame(f);else c.remove()})(t0);
+}
+(function(){
+  const _intro=intro;intro=function(){_intro();setBg('jacket',true)};
+  const _ask=ask;ask=function(i){_ask(i);setBg(Q_BG[i]||null)};
+  const _gr=granting;granting=function(){_gr();setBg('jacket')};
+  const _ch=challenge;challenge=function(){_ch();setBg('crouch')};
+  const _rec=record;record=function(f){setBg(null);return _rec(f)};
+  const _tm=timer;timer=function(){_tm();setBg('wings')};
+  const _ve=verify;verify=function(){_ve();setBg('wings')};
+  const _pr=proof;proof=function(){_pr();setBg(null)};
+  const _rv=reveal;reveal=function(){_rv();setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
+})();
+
+let musicOn=false;
+function startMusic(){if(!music)return;musicOn=true;if(music.volume>.45||music.volume===1)music.volume=.45;music.play().catch(()=>{})}
+/* Keep the music going: resume after any tap, when the tab comes back, or if the phone paused it. */
+document.addEventListener('pointerdown',()=>{if(musicOn&&music.paused)music.play().catch(()=>{})},true);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&musicOn&&music.paused)music.play().catch(()=>{})});
+music.addEventListener('pause',()=>{if(musicOn&&!document.hidden)setTimeout(()=>music.play().catch(()=>{}),300)});
+(function(){
+  const gate=document.getElementById('gate');
+  gate.addEventListener('click',()=>{startMusic();gate.classList.add('out');setTimeout(()=>gate.remove(),700);const g=document.getElementById('go');if(g)g.focus({preventScroll:true})},{once:true});
+  gate.focus();
+})();
+intro();
+</script>
+
+</body>
+</html>
