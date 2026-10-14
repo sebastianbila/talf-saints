@@ -231,11 +231,23 @@ function beep(freq=880,dur=.12,vol=.25){try{actx=actx||new (window.AudioContext|
 let voice=null;
 function pickVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));voice=vs.find(v=>/(Daniel|Alex|Arthur|Aaron|Male|Google UK English Male)/i.test(v.name))||vs[0]||null}catch(e){}}
 try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
-function say(t,rate=1){try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang='en-US';u.rate=rate;u.pitch=.85;speechSynthesis.speak(u)}catch(e){}}
+/* Pre-recorded voice clips played through Web Audio: much lighter than the speech engine while the camera runs. */
+const VMAP={'Get in position. Three.':'ready','Two.':'two','One.':'one','Hold the planche.':'hold','Keep it locked.':'locked','Five. Lean forward.':'five','Three.':'three','Now press. To handstand!':'press','Saint confirmed.':'confirmed','Happy birthday, TalF Saints!':'bday'};
+const VOICE={};let curV=null,voiceLoading=false;
+function loadVoice(){
+  if(voiceLoading)return;voiceLoading=true;
+  try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume()}catch(e){return}
+  [...new Set(Object.values(VMAP))].forEach(k=>fetch('voice/'+k+'.mp3').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>actx.decodeAudioData(b,ok,no))).then(buf=>{VOICE[k]=buf}).catch(()=>{}));
+}
+function say(t){
+  const k=VMAP[t],b=k&&VOICE[k];
+  if(b&&actx){try{if(actx.state==='suspended')actx.resume();if(curV){try{curV.stop()}catch(e){}}const src=actx.createBufferSource(),g=actx.createGain();g.gain.value=1.4;src.buffer=b;src.connect(g).connect(actx.destination);src.start();curV=src}catch(e){}return}
+  if(window.musicHold)return; /* never use the heavy speech engine while recording */
+  try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang='en-US';u.pitch=.85;speechSynthesis.speak(u)}catch(e){}
+}
 
 /* Countdown 3, hold 10, press. onEnd fires ~4.5s after "press". */
-function sequence(tn,ts,onEnd,quiet){
-  const say=quiet?()=>{}:window.say;
+function sequence(tn,ts,onEnd){
   let n=3;tn.classList.remove('go');tn.textContent=n;ts.textContent='Get ready';duck(true);
   say('Get in position. Three.');beep(660);
   const pre=setInterval(()=>{n--; if(n>0){tn.textContent=n;say(n===2?'Two.':'One.');beep(660)}else{clearInterval(pre);hold()}},1000);
@@ -315,7 +327,7 @@ async function record(facing){
     window.musicHold=true;if(music)music.pause();
     rec.start(500);
     try{speechSynthesis.cancel()}catch(e){}
-    sequence(document.getElementById('tn'),document.getElementById('ts'),()=>{try{rec.stop()}catch(e){}},true);
+    sequence(document.getElementById('tn'),document.getElementById('ts'),()=>{try{rec.stop()}catch(e){}});
   };
 }
 function timer(){
@@ -433,7 +445,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&musicOn&&
 music.addEventListener('pause',()=>{if(musicOn&&!window.musicHold&&!document.hidden)setTimeout(()=>music.play().catch(()=>{}),300)});
 (function(){
   const gate=document.getElementById('gate');
-  gate.addEventListener('click',()=>{startMusic();gate.classList.add('out');setTimeout(()=>gate.remove(),700);const g=document.getElementById('go');if(g)g.focus({preventScroll:true})},{once:true});
+  gate.addEventListener('click',()=>{startMusic();try{loadVoice()}catch(e){};gate.classList.add('out');setTimeout(()=>gate.remove(),700);const g=document.getElementById('go');if(g)g.focus({preventScroll:true})},{once:true});
   gate.focus();
 })();
 intro();
