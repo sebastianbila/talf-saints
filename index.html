@@ -154,15 +154,22 @@ footer{font-family:var(--display);font-size:11px;letter-spacing:.4em;color:rgba(
 <script>
 const Q=[
  {q:"Who sends “Вийдем на каву? ☕️” more often?",o:["Me","Sebastian","Nobody. We just appear at the coffee spot"],c:0,v:"Correct. 38 invites against his 19. Certified coffee initiator.",w:"Wrong. It’s you: 38 coffee invites against his 19."},
+ {q:"That coffee place grinds how many grams per shot?",o:["7","17","Who counts?"],c:1,v:"Correct. 17 grams. Only a true coffee nerd would know.",w:"Wrong. 17 grams. You told me yourself, coffee nerd."},
  {q:"Before coffee, your classic offer is…",o:["“Ідем до мене, накормлю”","“Let's skip breakfast”","“You're paying”"],c:0,v:"Correct. Feeding your bro first. A true saint.",w:"Wrong. Classic you: “Ідем до мене, накормлю.”"},
  {q:"Why can't Sebastian come out right now?",o:["Gym","A meeting","Sleeping"],c:1,v:"Correct. “Щас мітинг закінчу.” We know.",w:"Wrong. It’s always a meeting. “Щас мітинг закінчу.”"},
- {q:"The skill Sebastian still can't hold?",o:["Front lever","Planche","Handstand"],c:1,v:"Not anymore bro 😁",w:"Wrong. The answer was the planche… and even that's outdated. Not anymore bro 😁"},
- {q:"When Sebastian said “I can't even hold the planche”, you replied…",o:["“Skill issue”","“Some days can be more difficult… they make you stronger”","“Just eat more”"],c:1,v:"Correct. Your words. And they worked.",w:"Wrong. You said: “Some days can be more difficult… they make you stronger.” And it worked."},
+ {q:"Who's the voice-message guy?",o:["Me","Sebastian","We only text"],c:1,v:"Correct. 313 voice messages from him, 33 from you. He talks, you listen. Wisdom.",w:"Wrong. Sebastian: 313 voice messages. You: 33. He talks, you listen."},
+ {q:"How many reels did we send each other?",o:["About 50","About 150","500+"],c:2,v:"Correct. 504 reels. Sebastian 302, you 209. The algorithm knows us better than our parents.",w:"Wrong. 504 reels. Sebastian 302, you 209. The algorithm knows us better than our parents."},
  {q:"Your signature reaction?",o:["“Ноооо”","“Чотко”","“Капець”"],c:0,v:"Correct. Ноооо. Your trademark. We counted.",w:"Wrong. It’s “Ноооо”. Your trademark. We counted."},
  {q:"Which word do you say way more than Sebastian?",o:["бро","чотко","норм"],c:0,v:"Correct. Бро. 56 against 11. He owns “чотко”: 31 to 0.",w:"Wrong. It’s “бро”: 56 against 11. He owns “чотко”: 31 to 0."},
+ {q:"The skill Sebastian still can't hold?",o:["Front lever","Planche","Handstand"],c:1,v:"Not anymore bro 😁",w:"Wrong. The answer was the planche… and even that's outdated. Not anymore bro 😁"},
+ {q:"When Sebastian said “I can't even hold the planche”, you replied…",o:["“Skill issue”","“Some days can be more difficult… they make you stronger”","“Just eat more”"],c:1,v:"Correct. Your words. And they worked.",w:"Wrong. You said: “Some days can be more difficult… they make you stronger.” And it worked."},
+ {q:"Our record: most messages in one day?",o:["50","120","233"],c:2,v:"Correct. September 19. 67 videos filmed, a court booked and 233 messages.",w:"Wrong. 233. September 19: 67 videos filmed, a court booked, zero chill."},
+ {q:"In the last six months, how many days did we NOT text each other?",o:["About 30","About 10","Zero"],c:2,v:"Correct. 184 days, 184 days of messages. Not one day off. Not even rest days.",w:"Wrong. Zero. 184 days in a row. Not even rest days."},
  {q:"How many messages did we send each other in six months?",o:["About 1,300","About 13,000","About 130,000"],c:1,v:"Correct. About 13,000. Basically a full-time job.",w:"Wrong. About 13,000. Basically a full-time job."},
  {q:"Who texts more?",o:["Me","Sebastian","Dead even"],c:0,v:"Correct. You, by about 1,500 messages.",w:"Wrong. You do, by about 1,500 messages."},
  {q:"Your mom's perfume that you love?",o:["Sauvage","Symphony","Baccarat"],c:1,v:"Correct. Symphony. Hold that thought.",w:"Wrong. It’s Symphony. Hold that thought."},
+ {q:"Which perfume “smells like an old Merc with a leather interior”?",o:["Duro Nasomatto","Oud Wood","Your gym bag"],c:0,v:"Correct. From that “smell of big money” post I sent you. You were paying attention.",w:"Wrong. Duro Nasomatto. From that “smell of big money” post I sent you."},
+ {q:"Who said “I love you bro” first?",o:["Me","Sebastian","Nobody. Real men send 🫶"],c:0,v:"Correct. October 6. You said it. Sebastian answered “Love you too 🫶🏼”.",w:"Wrong. It was you, on October 6. Sebastian answered “Love you too 🫶🏼”."},
  {q:"When you leave a room, what should people remember?",o:["The posture","The handshake","Something they can't quite name…"],v:"Exactly. Let's make it happen."}
 ];
 let score=0;const scored=Q.filter(x=>x.c!==undefined).length;
@@ -174,7 +181,7 @@ function intro(){
   setProg(0);tag.textContent='Classified';
   show(`<div class="eyebrow">Birthday clearance required</div>
   <h1>Happy<em>Birthday</em></h1>
-  <p class="lead">Something was prepared for you. Before we hand it over, we need to confirm you are the real TALF SAINTS. Eleven questions. Get them wrong and we’ll know.</p>
+  <p class="lead">Something was prepared for you. Before we hand it over, we need to confirm you are the real TALF SAINTS. Eighteen questions. Get them wrong and we’ll know.</p>
   <button class="btn" id="go">Begin verification</button>`);
   document.getElementById('go').onclick=()=>{startMusic();ask(0)};
 }
@@ -349,7 +356,7 @@ function reveal(){
   window.scrollTo({top:0});
 }
 /* ---------- Photos, archive, finale ---------- */
-const Q_BG=[null,'duo-wall','crouch','duo-car',null,'duo-walk',null,'duo-white',null,'jacket',null];
+const Q_BG=[null,'duo-wall',null,'duo-walk','crouch',null,'duo-car',null,'jacket',null,'duo-white',null,'duo-heart',null,'wings',null,'duo-view',null];
 const ARCH=[
   ['duo-heart','50% 45%','56 times “бро” in six months. This is why.'],
   ['duo-wall','60% 40%','Waiting for someone to say “Вийдем на каву?”'],
