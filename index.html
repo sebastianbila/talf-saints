@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#0d0c0b">
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yxmxucpu3b");
+</script>
 <title>TALF SAINTS Birthday File</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap">
@@ -403,16 +410,17 @@ function confetti(){
   (function f(t){x.clearRect(0,0,W(),H());P.forEach(p=>{p.vy+=.28;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h*Math.abs(Math.cos(p.r)));x.restore()});
     if(t-t0<5200)requestAnimationFrame(f);else c.remove()})(t0);
 }
+function track(e,k,v){try{if(window.clarity){if(k)clarity('set',k,String(v));clarity('event',e)}}catch(x){}}
 (function(){
   const _intro=intro;intro=function(){_intro();setBg('jacket',true)};
-  const _ask=ask;ask=function(i){_ask(i);setBg(Q_BG[i]||null)};
-  const _gr=granting;granting=function(){_gr();setBg('jacket')};
-  const _ch=challenge;challenge=function(){_ch();setBg('crouch')};
+  const _ask=ask;ask=function(i){_ask(i);setBg(Q_BG[i]||null);if(i===0)track('quiz_started')};
+  const _gr=granting;granting=function(){_gr();setBg('jacket');track('quiz_finished','score',score+'/'+scored)};
+  const _ch=challenge;challenge=function(){_ch();setBg('crouch');track('challenge_opened')};
   const _rec=record;record=function(f){setBg(null);return _rec(f)};
   const _tm=timer;timer=function(){_tm();setBg('wings')};
-  const _ve=verify;verify=function(){_ve();setBg('wings')};
+  const _ve=verify;verify=function(){_ve();setBg('wings');track('proof_submitted')};
   const _pr=proof;proof=function(){_pr();setBg(null)};
-  const _rv=reveal;reveal=function(){_rv();setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
+  const _rv=reveal;reveal=function(){_rv();track('gift_revealed');setBg(null);confetti();beep(1320,.3,.25);setTimeout(()=>say('Happy birthday, TalF Saints!'),400)};
 })();
 
 let musicOn=false;
